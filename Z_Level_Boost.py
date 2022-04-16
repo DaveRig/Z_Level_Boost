@@ -33,7 +33,7 @@ def updateFile(userFile,zHeightBoost):
 	complete.config(text=saveFile)
 
 def pickFile():
-	root.filename = filedialog.askopenfilename(initialdir = os.path.expanduser('~')+"\\Documents", title = "Pick your file", filetype = (("gcode files","*.gcode"),("All files","*.*"))) # show an "Open" dialog box and return the path to the selected file
+	root.filename = filedialog.askopenfilename(initialdir = os.path.expanduser('~')+"\\Documents", title = "Pick your file", filetypes = (("gcode files","*.gcode"),("All files","*.*"))) # show an "Open" dialog box and return the path to the selected file
 	if root.filename == "":
 		root.filename = 'None'
 	gcode_lable.config(text = root.filename)
