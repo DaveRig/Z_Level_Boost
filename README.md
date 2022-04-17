@@ -13,3 +13,5 @@ THe process will ignore all comments meaning lines starting with a ;
 and if you want a specific line to be ignored you can add the command -ignore Zboost- to the origial gcode file
 for example in your start gcode script "G1 Z0.2 F3000 ; get ready to prime -ignore Zboost-" will ignore the priming command at the start of the print.
 
+If you want a full description of what this does and why check out this video for a explination
+https://youtu.be/xdAtwHVv_SI
