@@ -3,25 +3,34 @@ from pathlib import Path
 from tkinter import *
 from tkinter import filedialog
 
+# Reads in cgode file and updates Z height commands 
 def updateFile(userFile,zHeightBoost):
 	savePath = os.path.dirname(os.path.abspath(userFile))
 	fileName = Path(userFile).stem
 	saveFile = os.path.join(savePath,fileName+'_Z-height-Boost.gcode')
 
+	# Read gcode file	
 	with open(userFile, 'r') as file:
 		data = file.readlines()
 
 	i = 0
-
+	# Loop though each line looking for Z moves
 	for line in data:
 		FindZ = line.find('G1 Z')
 		FindIgnore = line.find('-ignore Zboost-')
 
+		# If ignore command not found and if "G1 Z" was found and the first character in the line is not a ;
 		if FindIgnore == -1 and FindZ != -1 and line[0] != ';':
 			FindZend = line.find(' ',3)
 			ZheightInt = line[4:FindZend]
+
+			#covnert both values to floats and add together
 			ZheightFloat =  float(ZheightInt) + float(zHeightBoost)
+
+			#Limit float to 2 decimal places
 			Zheight = "{:.2f}".format(ZheightFloat)
+
+			#replace value in line
 			data[i]= line.replace(str(ZheightInt),str(Zheight))
 		i += 1
 		
@@ -29,6 +38,7 @@ def updateFile(userFile,zHeightBoost):
 	with open(saveFile, 'w') as file:
 		file.writelines( data )
 
+	# update UI msg that roccess completed
 	error.config(text='DONE! New file at')
 	complete.config(text=saveFile)
 
